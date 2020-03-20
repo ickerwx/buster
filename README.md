@@ -5,8 +5,8 @@
 ## Usage
 
 ```
-./buster -h
-usage: buster [-h] -u URL -w WORDLIST [-s SIZE] [-t THREADS] [-a] [-f] [-v]
+./buster -h 
+usage: buster [-h] -u URL -w WORDLIST [-s SIZE] [-t THREADS] [-a USERAGENT] [-f] [-r] [-v]
 
 Brute force web directories, ignore responses of a certain size
 
@@ -17,8 +17,10 @@ optional arguments:
                         path to wordlist, one word per line
   -s SIZE, --size SIZE  If a reply is this size, ignore it. Pass multiple values comma-separated (100,123,3123)
   -t THREADS, --threads THREADS
-  -a, --addslash        append a slash to each request
-  -f, --follow          Follow redirects
+  -a USERAGENT, --useragent USERAGENT
+                        Set User-Agent
+  -f, --addslash        append a slash to each request
+  -r, --redirects          Follow redirects
   -v, --verbose         be more verbose, not used atm.
 ```
 
