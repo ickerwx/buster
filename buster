@@ -15,6 +15,7 @@ def parse_args():
     parser.add_argument('-u', '--url', dest='url', help='URL to scan, will be prefixed to each wordlist line',
                         required=True)
     parser.add_argument('-w', '--wordlist', dest='wordlist', help='path to wordlist, one word per line', required=True)
+    parser.add_argument('-p', '--proxy', dest='proxy', default=None, help='send identified resources to this proxy. The proxy must do HTTP and HTTPS.')
     parser.add_argument('-s', '--size', dest='size', default='2392', help='If a reply is this size, ignore it. Pass ' +
                         'multiple values comma-separated (100,123,3123)')
     parser.add_argument('-t', '--threads', dest='threads', type=int, default=10)
@@ -41,6 +42,9 @@ def check_url(word_queue, args):
         response = requests.get(url, verify=False, allow_redirects=args.follow, headers=headers)
         if response.status_code in [200, 204, 301, 302, 307, 401, 403] and len(response.text) not in args.size:
             print(f'[{response.status_code}] {url} ({len(response.text)})')
+            if args.proxy is not None:
+                proxies = {'http': args.proxy, 'https': args.proxy}
+                requests.get(url, verify=False, allow_redirects=args.follow, headers=headers, proxies=proxies)
 
 
 def main():
